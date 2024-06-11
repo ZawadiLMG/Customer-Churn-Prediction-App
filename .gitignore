@@ -1,6 +1,7 @@
 /env_streamlit
 /.streamlit
 /.streamlit/secrets.toml
+/first_requirements.txt
 
 
 
