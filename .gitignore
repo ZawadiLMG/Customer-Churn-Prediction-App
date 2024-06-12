@@ -1,7 +1,5 @@
 /env_streamlit
 /.streamlit
-/.streamlit/secrets.toml
-
 
 
 # Byte-compiled / optimized / DLL files
