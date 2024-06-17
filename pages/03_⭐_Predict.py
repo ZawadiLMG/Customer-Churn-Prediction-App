@@ -3,17 +3,18 @@ import pandas as pd
 import joblib
 
 st.set_page_config(
-    page_title = "Prediction Page",
-    page_icon = "🚀",
-    layout = 'wide'
+    page_title="Prediction Page",
+    page_icon="🚀",
+    layout='wide'
 )
+
 st.title('Customer Churn Prediction ⭐')
 st.sidebar.success("Select a page")
 
 # function to load the models
 st.cache_resource(show_spinner='models loading ...')
 def select_model():
-    col1,col2 = st.columns(2) # to reduce the size of the select box
+    col1, col2 = st.columns(2) # to reduce the size of the select box
     with col1:
         st.selectbox('Select a model', options=['Logistic_Regression','Random_Forest'], key='selected_model') # a selectbox with the option of two models
     with col2:
@@ -23,14 +24,9 @@ def select_model():
     else:
         pipeline = joblib.load('./models/Random_Forest.joblib')
     encoder = joblib.load('./models/encoder.joblib')
-    return pipeline,encoder  
-     
-#columns = ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
-       #'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
-       #'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
-       #'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-       #'MonthlyCharges', 'TotalCharges']      
-       
+    
+    return pipeline, encoder       
+
 # function to make predictions
 def make_prediction(pipeline,encoder):
     gender = st.session_state['gender']
@@ -53,11 +49,6 @@ def make_prediction(pipeline,encoder):
     monthlycharges = float(st.session_state['monthlycharges'])
     totalcharges = float(st.session_state['totalcharges'])
     
-#    data = {'gender': [gender], 'SeniorCitizen': [seniorcitizen], 'Partner': [partner], 'Dependents': [dependents],
- #       'tenure': [tenure], 'PaperlessBilling': [paperlessbilling],'PaymentMethod': [paymentmethod], 'MonthlyCharges': [monthlycharges],
-  #      'TotalCharges': [totalcharges], 'PhoneService': [phoneservice], 'MultipleLines': [multiplelines], 'InternetService': [internetservice],
-   #    'OnlineSecurity': [onlinesecurity], 'OnlineBackup': [onlinebackup], 'DeviceProtection': [deviceprotection], 'TechSupport': [techsupport],
-    #   'StreamingTV': [streamingtv], 'StreamingMovies': [streamingmovies], 'Contract': [contract] }
 
     data = [[gender, partner, dependents, paymentmethod, tenure, phoneservice, internetservice, seniorcitizen, multiplelines, 
              onlinesecurity,  onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, 
@@ -67,11 +58,15 @@ def make_prediction(pipeline,encoder):
              onlinesecurity,  onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, 
              contract, paperlessbilling, paymentmethod, monthlycharges, totalcharges]      
     
+    st.write(pipeline)
+    
+    # create dataframe
     df = pd.DataFrame(data, columns=columns)
 
     # Make predictions
     pred = pipeline.predict(df)
     pred_int =int(pred[0])
+    
     # The encoder.inverse_transform expects a 1D array
     prediction = encoder.inverse_transform([pred_int])
     probability = pipeline.predict_proba(df)
@@ -86,7 +81,7 @@ if 'probability' not in st.session_state:
     st.session_state['probability']=None   
     
 def display_form():
-    pipeline,encoder = select_model()
+    pipeline, encoder = select_model()
     with st.form('input-features'):
         col1,col2,col3,col4 = st.columns(4)
         with col1:
@@ -106,17 +101,17 @@ def display_form():
             st.number_input('Enter your Total Charges',key='totalcharges',min_value=118 ,max_value=8670,step=1)    
         with col3:
             st.write('### Services🌐')    
-            st.selectbox('Do you have a phoneservice?',key='phoneservice',options=['Yes','No'])
-            st.selectbox('Do you have multiplelines?',key='multiplelines',options=['Yes','No'])
-            st.selectbox('Choose your internetservice',key='internetservice',options=['Fiber optic', 'No', 'DSL'])
-            st.selectbox('Do you stream TV?',key='streamingtv',options=['Yes','No'])
-            st.selectbox('Do you stream movies?',key='streamingmovies',options=['Yes','No'])
+            st.selectbox('Do you have a phoneservice?', key='phoneservice',options=['Yes','No'])
+            st.selectbox('Do you have multiplelines?', key='multiplelines',options=['Yes','No'])
+            st.selectbox('Choose your internetservice', key='internetservice',options=['Fiber optic', 'No', 'DSL'])
+            st.selectbox('Do you stream TV?', key='streamingtv',options=['Yes','No'])
+            st.selectbox('Do you stream movies?', key='streamingmovies',options=['Yes','No'])
         with col4:
             st.write('### Security🚨')    
-            st.selectbox('Do you have onlinesecurity?',key='onlinesecurity',options=['Yes','No']) 
-            st.selectbox('Do you have onlinebackup?',key='onlinebackup',options=['Yes','No'])
-            st.selectbox('Do you have deviceprotection?',key='deviceprotection',options=['Yes','No'])
-            st.selectbox('Do you have techsupport?',key='techsupport',options=['Yes','No'])
+            st.selectbox('Do you have onlinesecurity?', key='onlinesecurity',options=['Yes','No']) 
+            st.selectbox('Do you have onlinebackup?', key='onlinebackup',options=['Yes','No'])
+            st.selectbox('Do you have deviceprotection?', key='deviceprotection',options=['Yes','No'])
+            st.selectbox('Do you have techsupport?', key='techsupport',options=['Yes','No'])
             
         st.form_submit_button('submit',on_click=make_prediction,kwargs=dict(pipeline=pipeline,encoder=encoder))
              
