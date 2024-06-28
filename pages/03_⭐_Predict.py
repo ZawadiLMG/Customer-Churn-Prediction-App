@@ -130,49 +130,47 @@ def make_predictions(pipeline, encoder):
         
 
 def display_form():
-                pipeline, encoder = select_model()
-                col1, col2, col3, col4 = st.columns(4)
-        
-                with col1:
-                        st.write('#### Personal Info👨')
-                        st.selectbox('What is your gender?', ['Male', 'Female'], key='gender')
-                        st.selectbox('Do you have a partner?', ['Yes', 'No'], key='partner')
-                        st.selectbox('Do you have people that depend on you?', ['Yes', 'No'], key='dependents')
-                        st.selectbox('Are you a senior citizen?', ['Yes', 'No'], key='seniorcitizen')
-        
-                with col2:
-                        st.write('#### Customer Info👪')
-                        st.selectbox('Do you use paperless billing?', ['Yes', 'No'], key='paperlessbilling')
-                        st.selectbox('What type of payment do you use?', ['Electronic Check', 'Mailed Check', 'Bank Transfer', 'Credit Card'], key='paymentmethod')
-                        st.selectbox('Do you have access to phone services?', ['Yes', 'No'], key='phoneservice')
-                        st.selectbox('Do you have multiple lines?', ['Yes', 'No'], key='multiplelines')
-                        st.selectbox('Do you have access to tech support?', ['Yes', 'No'], key='techsupport')
-                
-                with col3:
-                        st.write('#### Services🔮')
-                        st.selectbox('What type of internet connection do you use?', ['DSL', 'Fiber Optic', 'No'], key='internetservice')
-                        st.selectbox('Do you have online security?', ['Yes', 'No'], key='onlinesecurity')
-                        st.selectbox('Do you have online backup storage?', ['Yes', 'No'], key='onlinebackup')
-                        st.selectbox('Do you have device protection?', ['Yes', 'No'], key='deviceprotection')
-                        st.selectbox('Do you stream TV channels smoothly?', ['Yes', 'No'], key='streamingtv')
-                with col4:
-                        st.write('#### Payment Info💰')
-                        st.selectbox('Are you able to stream your movies perfectly?', ['Yes', 'No'], key='streamingmovies')
-                        st.selectbox('What type of contract have you subscribed to?', ['Month-to-Month', 'One Year', 'Two Year'], key='contract')
+    pipeline, encoder = select_model()
+    col1, col2, col3, col4 = st.columns(4)    
+    with col1:
+            st.write('### Personal Info👨')
+            st.selectbox(' What is your gender?', ['Male', 'Female'], key= 'gender')
+            st.selectbox('Do you have a partner?', ['Yes', 'No'], key= 'partner')
+            st.selectbox('Do you have people that dependent on you?', ['Yes', 'No'], key= 'dependents')
+            st.selectbox('Are you a senior citizen?', ['Yes', 'No'], key='seniorcitizen')          
+    with col2:
+            st.write('### Customer Info')
+            st.selectbox('Do you use paperless billing?', ['Yes', 'No'], key= 'paperlessbilling')
+            st.selectbox('What other types of payment do you use?', ['Electronic Check', 'Mailed Check', 'Bank Transfer', 'Credit Card'], key= 'paymentmethod')
+            st.selectbox('Do you have access to phone services?', ['Yes', 'No'], key= 'phoneservice')
+            st.selectbox('Do you have multiple lines?', ['Yes', 'No'], key='multiplelines')
+            st.selectbox('Do you have access to tech support', ['Yes', 'No'], key= 'techsupport')
+    with col3:
+            st.write('### Services ')
+            st.selectbox('What type of internet connection do you use?', ['DSL', 'Fiber Optic', 'No'], key= 'internetservice')
+            st.selectbox('Do you have online security?', ['Yes', 'No'], key= 'onlinesecurity')
+            st.selectbox('Do you have online backup storage?', ['Yes', 'No'], key= 'onlinebackup')
+            st.selectbox('Do you have device protection?', ['Yes', 'No'], key= 'deviceprotection')
+            st.selectbox('Do you stream TV channels smoothly?', ['Yes', 'No'], key='streamingtv')
+    with col4:
+            st.write('#### Payment Info')
+            st.selectbox('Are you able to stream your movies perfectly?', ['Yes', 'No'], key='streamingmovies')
+            st.selectbox('What type of contract have you subscribed to?', ['Month-to-Month', 'One Year', 'Two Year'], key= 'contract')
+            
+            if 'tenure' not in st.session_state:
+                  st.session_state.tenure = 12
 
-                        
-                        if 'tenure' not in st.session_state:
-                                st.session_state.tenure = 12
-                        st.number_input('How long have you been our customer?', min_value=0, max_value=72, value=st.session_state.tenure)
-                
-                        if 'monthlycharges' not in st.session_state:
-                                st.session_state.monthlycharges = 100
-                        st.number_input('How much is your monthly charges?', min_value=0, max_value=1000, value=st.session_state.monthlycharges)
-
-                        if 'totalcharges' not in st.session_state:
-                                st.session_state.totalcharges = 1000
-                        st.number_input('How much is your total annual charges?', min_value=0, max_value=10000, value=st.session_state.totalcharges)
-                
+            st.number_input('How long have you been our customer?', min_value=0, max_value=72, value=st.session_state.tenure)
+            
+            if'monthlycharges' not in st.session_state:
+                  st.session_state.monthlycharges = 100
+            st.number_input('How much are your monthly charges?', min_value=0, max_value=1000, value=st.session_state.monthlycharges)
+            
+            if 'totalcharges' not in st.session_state:
+                  st.session_state.totalcharges = 1000
+            st.number_input('How much are your total annual charges?', min_value=0, max_value=10000, value=st.session_state.totalcharges)
+           
+            
 
                 # Prediction button
                 with st.form(key='prediction_form'):
