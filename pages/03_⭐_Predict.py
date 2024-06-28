@@ -13,18 +13,18 @@ st.set_page_config(
         layout="wide",
         )
 
-st.title("Churn Prediction 🔍")
+st.title("Churn Prediction⭐")
 
 
 @st.cache_resource(show_spinner= 'Models loading...')
 def load_logistic_regression_pipeline():
-                pipeline = joblib.load('./modelpipelines/Logistic_Regression.joblib')
+                pipeline = joblib.load('./models/Logistic_Regression.joblib')
                 return pipeline
 
 
 @st.cache_resource(show_spinner= 'models loading...')
 def load_random_forest_pipeline():
-                pipeline = joblib.load('./modelpipelines/Random_Forest.joblib')
+                pipeline = joblib.load('./models/Random_Forest.joblib')
                 return pipeline
 
 
@@ -43,7 +43,7 @@ def select_model():
                 else:
                         pipeline = load_random_forest_pipeline()
 
-                encoder = joblib.load('modelpipelines/encoder.joblib')
+                encoder = joblib.load('models/encoder.joblib')
 
                 return pipeline, encoder
 
@@ -134,28 +134,29 @@ def display_form():
                 col1, col2, col3, col4 = st.columns(4)
         
                 with col1:
-                        st.write('### Personal Info👨')
+                        st.write('#### Personal Info👨')
                         st.selectbox('What is your gender?', ['Male', 'Female'], key='gender')
                         st.selectbox('Do you have a partner?', ['Yes', 'No'], key='partner')
                         st.selectbox('Do you have people that depend on you?', ['Yes', 'No'], key='dependents')
-                      #  st.selectbox('Are you a senior citizen?', ['Yes', 'No'], key='seniorcitizen')
+                        st.selectbox('Are you a senior citizen?', ['Yes', 'No'], key='seniorcitizen')
         
                 with col2:
-                        st.write('### Customer Info')
+                        st.write('#### Customer Info👪')
                         st.selectbox('Do you use paperless billing?', ['Yes', 'No'], key='paperlessbilling')
                         st.selectbox('What type of payment do you use?', ['Electronic Check', 'Mailed Check', 'Bank Transfer', 'Credit Card'], key='paymentmethod')
                         st.selectbox('Do you have access to phone services?', ['Yes', 'No'], key='phoneservice')
                         st.selectbox('Do you have multiple lines?', ['Yes', 'No'], key='multiplelines')
                         st.selectbox('Do you have access to tech support?', ['Yes', 'No'], key='techsupport')
+                
                 with col3:
-                        st.write('### Services')
+                        st.write('#### Services🔮')
                         st.selectbox('What type of internet connection do you use?', ['DSL', 'Fiber Optic', 'No'], key='internetservice')
                         st.selectbox('Do you have online security?', ['Yes', 'No'], key='onlinesecurity')
                         st.selectbox('Do you have online backup storage?', ['Yes', 'No'], key='onlinebackup')
                         st.selectbox('Do you have device protection?', ['Yes', 'No'], key='deviceprotection')
                         st.selectbox('Do you stream TV channels smoothly?', ['Yes', 'No'], key='streamingtv')
                 with col4:
-                        st.write('#### Payment Info')
+                        st.write('#### Payment Info💰')
                         st.selectbox('Are you able to stream your movies perfectly?', ['Yes', 'No'], key='streamingmovies')
                         st.selectbox('What type of contract have you subscribed to?', ['Month-to-Month', 'One Year', 'Two Year'], key='contract')
 
@@ -189,10 +190,10 @@ if __name__ == "__main__":
                         st.divider()
                 elif prediction == "Yes":
                         probability_of_yes = probability[0][1] * 100
-                        st.markdown(f"### The customer will leave the company services with a probability of {round(probability_of_yes,2)}%")
+                        st.markdown(f"### The customer is highly likely to churn | Probability = {round(probability_of_yes,2)}%")
                 else:
                         probability_of_no = probability[0][0]*100
-                        st.markdown(f"### The customer not will leave the company services with a probability of {round(probability_of_no,2)}%")
+                        st.markdown(f"### The customer will not churn | Probability = {round(probability_of_no,2)}%")
         
 st.write(st.session_state)
         
