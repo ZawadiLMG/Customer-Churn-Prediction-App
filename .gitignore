@@ -1,9 +1,5 @@
+# environment
 /env_streamlit
-/.streamlit
-/.streamlit/secrets.toml
-/first_requirements.txt
-
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
