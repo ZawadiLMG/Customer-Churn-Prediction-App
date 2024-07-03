@@ -134,7 +134,7 @@ def display_form():
                 col1, col2, col3, col4 = st.columns(4)
         
                 with col1:
-                        st.write('#### Personal Info👨')
+                        st.write('### Personal Info👨')
                         st.selectbox('What is your gender?', ['Male', 'Female'], key='gender')
                         st.selectbox('Do you have a partner?', ['Yes', 'No'], key='partner')
                         st.selectbox('Do you have people that depend on you?', ['Yes', 'No'], key='dependents')
