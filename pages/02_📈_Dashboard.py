@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
+
 st.set_page_config(
     page_title = "Dashboard Page",
     page_icon = "🚀",
@@ -10,16 +11,17 @@ st.set_page_config(
 st.title('Dashboard 📈')
 st.sidebar.success("Select a page")
 
-df = pd.read_csv('data/training_data.csv')
+
+df = pd.read_csv('./Data/training_data.csv')
 
     # Filters on sidebar
 st.sidebar.subheader('Filters')
 
     # For gender
-gender = st.sidebar.multiselect("Pick your gender", df["gender"].unique())
-if not gender:
+    gender = st.sidebar.multiselect("Pick your gender", df["gender"].unique())
+    if not gender:
         final = df.copy()
-else:
+    else:
         final = df[df["gender"].isin(gender)]
 
 
