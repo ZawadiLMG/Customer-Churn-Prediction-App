@@ -12,7 +12,7 @@ st.title('Telcom Customer Churn Database 🏬')
 st.sidebar.success("select a page above")
  
 # Load data
-df = pd.read_csv('.data/training_data.csv')
+df = pd.read_csv('data/training_data.csv')
  
 # Identify categorical and numerical columns
 categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
