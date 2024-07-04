@@ -10,7 +10,7 @@ st.set_page_config(
     )
 
 def display_history():
-    csv_path = "data/history.csv"
+    csv_path = "Data_History/history.csv"
     csv_exists = os.path.exists(csv_path)
     
     if csv_exists:

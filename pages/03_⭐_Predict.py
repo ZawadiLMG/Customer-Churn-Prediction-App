@@ -98,7 +98,7 @@ def make_predictions(pipeline, encoder):
                 df= pd.DataFrame(data, columns=columns)
 
                 # Save dataframe to csv file as history data
-                df.to_csv('./Data/history.csv' ,mode='a',header=not os.path.exists('./Data/history.csv'), index=False)
+                df.to_csv('./Data_History/history.csv' ,mode='a',header=not os.path.exists('./Data_History/history.csv'), index=False)
 
 
                 # Change the data types to numerical 
