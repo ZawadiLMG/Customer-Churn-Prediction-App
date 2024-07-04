@@ -10,7 +10,7 @@ st.set_page_config(
 st.title('Dashboard 📈')
 st.sidebar.success("Select a page")
 
-df = pd.read_csv('./Data/training_data.csv')
+df = pd.read_csv('./data/training_data.csv')
 
 # Filters on sidebar
 st.sidebar.subheader('Filters')
